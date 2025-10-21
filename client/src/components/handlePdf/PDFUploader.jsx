@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useUser } from "@clerk/clerk-react";
-import { Upload, FileText, Loader2, AlertCircle } from "lucide-react";
+import { Upload, FileText, Loader2, AlertCircle, Download } from "lucide-react";
 import { toast } from "react-toastify";
+import * as XLSX from "xlsx";
 
 export default function PDFUploader() {
   const [file, setFile] = useState(null);
@@ -98,6 +99,7 @@ export default function PDFUploader() {
 
       if (data.pdfRecord) {
         setResult(data.pdfRecord);
+        setFile(null);
         toast.success("Data extracted successfully!", {
           position: "top-center",
           theme: "dark",
@@ -113,6 +115,54 @@ export default function PDFUploader() {
       });
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleExportToExcel = () => {
+    if (!result || !result.extractedData) {
+      toast.error("No data to export!", {
+        position: "top-center",
+        theme: "dark",
+      });
+      return;
+    }
+
+    try {
+      // Convert extracted data to array format for Excel
+      const dataArray = Object.entries(result.extractedData).map(
+        ([key, value]) => ({
+          Field: key.replace(/([A-Z])/g, " $1").trim(),
+          Value: typeof value === "object" ? JSON.stringify(value) : value,
+        })
+      );
+
+      // Create worksheet
+      const ws = XLSX.utils.json_to_sheet(dataArray);
+
+      // Set column widths
+      ws["!cols"] = [{ wch: 30 }, { wch: 50 }];
+
+      // Create workbook
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Statement Data");
+
+      // Generate filename with timestamp
+      const timestamp = new Date().toISOString().slice(0, 10);
+      const filename = `credit_card_statement_${timestamp}.xlsx`;
+
+      // Download
+      XLSX.writeFile(wb, filename);
+
+      toast.success("Excel file downloaded successfully!", {
+        position: "top-center",
+        theme: "dark",
+      });
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to export to Excel!", {
+        position: "top-center",
+        theme: "dark",
+      });
     }
   };
 
@@ -159,6 +209,11 @@ export default function PDFUploader() {
 
   return (
     <div className="flex flex-col space-y-6 bg-gradient-to-br from-gray-800 to-gray-900 p-8 rounded-xl shadow-2xl border border-gray-700">
+      {/* Header */}
+      <div className="flex justify-between items-center">
+        <h2 className="text-2xl font-bold text-white">Upload Statement</h2>
+      </div>
+
       {/* Upload Section */}
       <div className="space-y-4">
         <input
@@ -187,7 +242,9 @@ export default function PDFUploader() {
               {file ? file.name : "Click to select PDF file"}
             </p>
             <p className="text-xs text-gray-500 mt-2">
-              {file ? `${(file.size / 1024).toFixed(2)} KB` : "PDF format only"}
+              {file
+                ? `${(file.size / 1024).toFixed(2)} KB`
+                : "PDF only • Max 10MB"}
             </p>
           </div>
         </label>
@@ -234,6 +291,17 @@ export default function PDFUploader() {
       {/* Results */}
       {result && !isLoading && (
         <div className="space-y-4">
+          {/* Export Button */}
+          <div className="flex justify-end">
+            <button
+              onClick={handleExportToExcel}
+              className="px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-blue-800 transition-all flex items-center space-x-2 shadow-lg"
+            >
+              <Download className="w-4 h-4" />
+              <span>Export to Excel</span>
+            </button>
+          </div>
+
           <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl border border-gray-700 overflow-hidden shadow-xl">
             <div className="bg-emerald-600/20 px-6 py-4 border-b border-gray-700">
               <h3 className="font-semibold text-white flex items-center space-x-2">

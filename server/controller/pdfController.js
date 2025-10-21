@@ -76,3 +76,20 @@ Extract the following fields as JSON only:
     res.status(500).json({ error: err.message });
   }
 };
+export const getUserHistory = async (req, res) => {
+  try {
+    const { clerkUserId } = req.params;
+
+    const user = await User.findOne({ clerkId: clerkUserId });
+    if (!user) return res.status(404).json({ error: "User not found" });
+
+    const history = await PdfRecord.find({ user: user._id })
+      .sort({ uploadedAt: -1 })
+      .lean();
+
+    res.json({ history });
+  } catch (err) {
+    console.error("History fetch error:", err);
+    res.status(500).json({ error: err.message });
+  }
+};

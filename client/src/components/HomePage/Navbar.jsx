@@ -10,7 +10,7 @@ import { FileText } from "lucide-react";
 
 export default function Navbar() {
   return (
-    <nav className="bg-gray-900/95 backdrop-blur-sm shadow-lg px-6 py-4 flex justify-between items-center border-b border-gray-800 sticky top-0 z-50">
+    <nav className="bg-gray-900/95 backdrop-blur-sm shadow-lg px-10 py-4 flex justify-between items-center border-b border-gray-800 sticky top-0 z-50">
       <div className="flex items-center space-x-4">
         <div className="flex items-center space-x-3">
           <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-emerald-700 rounded-lg flex items-center justify-center overflow-hidden">
