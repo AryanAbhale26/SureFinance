@@ -1,7 +1,7 @@
 import React from "react";
 import { SignedIn, SignedOut } from "@clerk/clerk-react";
 import GetStarted from "./components/HomePage/GetStarted";
-import PDFUploader from "./components/handlePdf/PdfUploader";
+import PDFUploader from "./components/HandlePdf/PdfUploader";
 
 export default function App() {
   return (

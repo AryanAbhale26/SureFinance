@@ -1,4 +1,4 @@
-import PDFUploader from "../components/handlePdf/PdfUploader";
+import PDFUploader from "../components/HandlePdf/PdfUploader";
 
 export default function Upload() {
   return (
