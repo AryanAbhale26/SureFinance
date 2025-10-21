@@ -20,7 +20,7 @@ export default function GetStarted() {
     if (!isSignedIn) {
       // Show alert popup
       alert(
-        "⚠️ Authentication Required\n\nPlease sign in first to upload PDF statements!"
+        " Authentication Required\n\nPlease sign in first to upload PDF statements!"
       );
 
       toast.error("Please sign in first to upload PDF statements!", {

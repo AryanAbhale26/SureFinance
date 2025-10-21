@@ -61,7 +61,23 @@ Extract the following fields as JSON only:
       .replace(/^```(json)?\n?/, "")
       .replace(/```$/, "")
       .trim();
+
     const extractedData = JSON.parse(rawText);
+
+    // Check if all fields are empty
+    const hasData = Object.values(extractedData).some((value) => {
+      if (typeof value === "string") return value.trim() !== "";
+      if (typeof value === "object" && value !== null)
+        return Object.keys(value).length > 0;
+      return value != null && value !== "";
+    });
+
+    if (!hasData) {
+      return res.status(400).json({
+        error:
+          "No information could be extracted from the PDF. Please check if the document is a valid credit card statement.",
+      });
+    }
 
     // Save record in MongoDB
     const pdfRecord = await PdfRecord.create({
@@ -73,9 +89,10 @@ Extract the following fields as JSON only:
     res.json({ pdfRecord });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ error: err.message || "Failed to process PDF" });
   }
 };
+
 export const getUserHistory = async (req, res) => {
   try {
     const { clerkUserId } = req.params;
