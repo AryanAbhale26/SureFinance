@@ -29,12 +29,12 @@ This project was developed as part of the *Credit Card Statement Parser Assignme
 
 ## 🚀 Features
 
-✅ Upload and process PDF statements seamlessly  
-✅ Automatically extract 5 essential financial data points  
-✅ AI-powered data recognition using **Google Gemini API**  
-✅ Clean, modern, and responsive **React + Tailwind CSS** frontend  
-✅ Fast and reliable backend with **Node.js**, **Express**, and **MongoDB**  
-✅ Secure environment configuration with **dotenv**  
+Upload and process PDF statements seamlessly  
+Automatically extract 5 essential financial data points  
+AI-powered data recognition using **Google Gemini API**  
+Clean, modern, and responsive **React + Tailwind CSS** frontend  
+Fast and reliable backend with **Node.js**, **Express**, and **MongoDB**  
+Secure environment configuration with **dotenv**  
 
 ---
 
@@ -42,7 +42,6 @@ This project was developed as part of the *Credit Card Statement Parser Assignme
 
 **Frontend:** React, Tailwind CSS  
 **Backend:** Node.js, Express.js, MongoDB  
-**AI Model:** Google Gemini API  
 **Deployment:** Vercel (Frontend) & Render (Backend)  
 
 ---
@@ -112,13 +111,10 @@ This project was developed as part of the *Credit Card Statement Parser Assignme
 **StatementIQ Solution:**  
 - Parses statements from multiple credit card providers  
 - Extracts 5 essential data fields (provider, card variant, card last 4 digits, billing cycle, payment due date, total balance)  
-- Powered by **Google Gemini API** for advanced document intelligence  
-- Built with a scalable **MERN stack** architecture for smooth performance and reliability  
+- Powered by **Google Gemini** for advanced document intelligence  
+- Built with **MERN stack** architecture for smooth performance and reliability  
 
 ---
 
-## 🪪 License
-
-This project is licensed under the **MIT License**.
 
 
