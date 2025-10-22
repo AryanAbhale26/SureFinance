@@ -129,22 +129,3 @@ This project was developed as part of the *Credit Card Statement Parser Assignme
 
 ---
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-## 👨‍💻 Author
-
-**Aryan Abhale**  
-[GitHub](https://github.com/AryanAbhale26) | [LinkedIn](https://linkedin.com/in/aryanabhale)
-
----
-
-## 🙏 Acknowledgments
-
-- Google Gemini API for powerful document intelligence
-- ImageKit for secure and reliable file storage
-- MongoDB Atlas for database hosting
-- Vercel & Render for seamless deployment
